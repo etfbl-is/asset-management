@@ -8,8 +8,8 @@ import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.method.HandlerMethod;
-import org.unibl.etf.is.am.util.LoggingUtil;
 import org.unibl.etf.is.am.exceptions.HttpException;
+import org.unibl.etf.is.am.util.LoggingUtil;
 
 @ControllerAdvice
 public class GlobalExceptionHandler {
