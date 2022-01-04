@@ -3,8 +3,8 @@ package org.unibl.etf.is.am.controllers;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.unibl.etf.is.am.base.CrudController;
-import org.unibl.etf.is.am.models.AssetType;
-import org.unibl.etf.is.am.models.AssetTypeRequest;
+import org.unibl.etf.is.am.models.dto.AssetType;
+import org.unibl.etf.is.am.models.requests.AssetTypeRequest;
 import org.unibl.etf.is.am.services.AssetTypeService;
 
 @RestController

@@ -4,8 +4,8 @@ import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 import org.unibl.etf.is.am.base.CrudJpaService;
 import org.unibl.etf.is.am.models.entities.LocationEntity;
-import org.unibl.etf.is.am.repositories.LocationEntityRepository;
 import org.unibl.etf.is.am.services.LocationService;
+import org.unibl.etf.is.am.repositories.LocationEntityRepository;
 
 import javax.transaction.Transactional;
 

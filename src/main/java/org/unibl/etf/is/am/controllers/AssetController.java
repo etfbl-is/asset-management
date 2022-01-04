@@ -5,11 +5,11 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import org.unibl.etf.is.am.exceptions.NotFoundException;
-import org.unibl.etf.is.am.models.Asset;
-import org.unibl.etf.is.am.models.AssetRequest;
+import org.unibl.etf.is.am.models.dto.Asset;
+import org.unibl.etf.is.am.models.requests.AssetRequest;
 import org.unibl.etf.is.am.services.AssetService;
 
-import java.util.List;
+import javax.validation.Valid;
 
 @RestController
 @RequestMapping("/assets")
@@ -20,6 +20,7 @@ public class AssetController {
     public AssetController(AssetService assetService) {
         this.assetService = assetService;
     }
+
 
     @GetMapping
     Page<Asset> findAll(Pageable page) {
@@ -38,12 +39,12 @@ public class AssetController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public Asset insert(@RequestBody AssetRequest assetRequest) throws NotFoundException {
+    public Asset insert(@RequestBody @Valid AssetRequest assetRequest) throws NotFoundException {
         return assetService.insert(assetRequest, Asset.class);
     }
 
     @PutMapping("/{id}")
-    public Asset update(@PathVariable Integer id, @RequestBody AssetRequest assetRequest) throws NotFoundException {
+    public Asset update(@PathVariable Integer id, @Valid @RequestBody AssetRequest assetRequest) throws NotFoundException {
         return assetService.update(id, assetRequest, Asset.class);
     }
 }

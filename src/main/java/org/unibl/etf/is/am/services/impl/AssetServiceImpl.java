@@ -4,10 +4,10 @@ import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 import org.unibl.etf.is.am.base.CrudJpaService;
 import org.unibl.etf.is.am.exceptions.ConflictException;
-import org.unibl.etf.is.am.models.Asset;
+import org.unibl.etf.is.am.models.dto.Asset;
 import org.unibl.etf.is.am.models.entities.AssetEntity;
-import org.unibl.etf.is.am.repositories.AssetEntityRepository;
 import org.unibl.etf.is.am.services.AssetService;
+import org.unibl.etf.is.am.repositories.AssetEntityRepository;
 
 import javax.transaction.Transactional;
 import java.util.List;
@@ -34,15 +34,13 @@ public class AssetServiceImpl extends CrudJpaService<AssetEntity, Integer> imple
 
     @Override
     public <T, U> T update(Integer integer, U object, Class<T> resultDtoClass) {
-        if (repository.existsByIdentifierAndIdNot(getModelMapper().map(object, getEntityClass()).getIdentifier(),
-                integer))
+        if (repository.existsByIdentifierAndIdNot(getModelMapper().map(object, getEntityClass()).getIdentifier(), integer))
             throw new ConflictException();
         return super.update(integer, object, resultDtoClass);
     }
 
     @Override
     public List<Asset> getAllAssetsByLocationId(Integer id) {
-        return repository.getAllByLocation_Id(id).stream().map(a -> modelMapper.map(a, Asset.class))
-                .collect(Collectors.toList());
+        return repository.getAllByLocation_Id(id).stream().map(a -> modelMapper.map(a, Asset.class)).collect(Collectors.toList());
     }
 }

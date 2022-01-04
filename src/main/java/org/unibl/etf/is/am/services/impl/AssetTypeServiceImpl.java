@@ -18,7 +18,7 @@ public class AssetTypeServiceImpl extends CrudJpaService<AssetTypeEntity, Intege
 
     public AssetTypeServiceImpl(AssetTypeEntityRepository repository, ModelMapper modelMapper) {
         super(repository, modelMapper, AssetTypeEntity.class);
-        this.repository=repository;
+        this.repository = repository;
     }
 
     @Override
