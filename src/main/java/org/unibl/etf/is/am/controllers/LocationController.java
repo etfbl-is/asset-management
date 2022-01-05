@@ -2,15 +2,18 @@ package org.unibl.etf.is.am.controllers;
 
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import org.unibl.etf.is.am.exceptions.NotFoundException;
 import org.unibl.etf.is.am.models.dto.Asset;
 import org.unibl.etf.is.am.models.dto.Location;
 import org.unibl.etf.is.am.models.dto.SingleLocation;
+import org.unibl.etf.is.am.models.dto.User;
 import org.unibl.etf.is.am.models.requests.LocationRequest;
 import org.unibl.etf.is.am.services.AssetService;
 import org.unibl.etf.is.am.services.LocationService;
+import org.unibl.etf.is.am.services.SupervisorService;
 
 import javax.validation.Valid;
 import java.util.List;
@@ -23,9 +26,12 @@ public class LocationController {
 
     private final AssetService assetService;
 
-    public LocationController(LocationService locationService, AssetService assetService) {
+    private final SupervisorService supervisorService;
+
+    public LocationController(LocationService locationService, AssetService assetService, SupervisorService supervisorService) {
         this.locationService = locationService;
         this.assetService = assetService;
+        this.supervisorService = supervisorService;
     }
 
     @GetMapping
@@ -53,6 +59,23 @@ public class LocationController {
     @PutMapping("/{id}")
     public SingleLocation update(@PathVariable Integer id, @RequestBody @Valid LocationRequest location) throws NotFoundException {
         return locationService.update(id, location, SingleLocation.class);
+    }
+
+    @GetMapping("/{id}/supervisors")
+    public List<User> getAllSupervisors(@PathVariable Integer id){
+        return supervisorService.getAllByLocationId( id);
+    }
+
+    @PostMapping("/{id}/supervisors/{userId}")
+    @ResponseStatus(HttpStatus.CREATED)
+    public void addSupervisor(@PathVariable Integer id, @PathVariable Integer userId){
+        supervisorService.addSupervisor(id,userId);
+    }
+
+
+    @DeleteMapping("/{id}/supervisors/{userId}")
+    public void deleteSupervisor(@PathVariable Integer id, @PathVariable Integer userId){
+        supervisorService.deleteSupervisor(id,userId);
     }
 
     @DeleteMapping("/{id}")

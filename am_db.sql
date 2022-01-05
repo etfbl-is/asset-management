@@ -1,6 +1,6 @@
 -- --------------------------------------------------------
 -- Host:                         127.0.0.1
--- Server version:               5.7.26-log - MySQL Community Server (GPL)
+-- Server version:               5.7.29-log - MySQL Community Server (GPL)
 -- Server OS:                    Win64
 -- HeidiSQL Version:             11.0.0.5919
 -- --------------------------------------------------------
@@ -41,7 +41,7 @@ CREATE TABLE IF NOT EXISTS `asset` (
   CONSTRAINT `FK_asset_location` FOREIGN KEY (`location_id`) REFERENCES `location` (`id`),
   CONSTRAINT `FK_asset_user` FOREIGN KEY (`created_by`) REFERENCES `user` (`id`),
   CONSTRAINT `FK_asset_user_2` FOREIGN KEY (`updated_by`) REFERENCES `user` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- Data exporting was unselected.
 
@@ -59,7 +59,7 @@ CREATE TABLE IF NOT EXISTS `asset_status` (
   KEY `FK_asset_status_user_2` (`updated_by`),
   CONSTRAINT `FK_asset_status_user` FOREIGN KEY (`created_by`) REFERENCES `user` (`id`),
   CONSTRAINT `FK_asset_status_user_2` FOREIGN KEY (`updated_by`) REFERENCES `user` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- Data exporting was unselected.
 
@@ -78,7 +78,7 @@ CREATE TABLE IF NOT EXISTS `asset_type` (
   KEY `FK_asset_type_user_2` (`created_by`),
   CONSTRAINT `FK_asset_type_user` FOREIGN KEY (`updated_by`) REFERENCES `user` (`id`),
   CONSTRAINT `FK_asset_type_user_2` FOREIGN KEY (`created_by`) REFERENCES `user` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- Data exporting was unselected.
 
@@ -98,7 +98,19 @@ CREATE TABLE IF NOT EXISTS `location` (
   KEY `FK_location_user_2` (`updated_by`),
   CONSTRAINT `FK_location_user` FOREIGN KEY (`created_by`) REFERENCES `user` (`id`),
   CONSTRAINT `FK_location_user_2` FOREIGN KEY (`updated_by`) REFERENCES `user` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
+
+-- Data exporting was unselected.
+
+-- Dumping structure for table asset_management.location_supervisor
+CREATE TABLE IF NOT EXISTS `location_supervisor` (
+  `location_id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  PRIMARY KEY (`location_id`,`user_id`),
+  KEY `FK_location_supervisor_user` (`user_id`),
+  CONSTRAINT `FK_location_supervisor_location` FOREIGN KEY (`location_id`) REFERENCES `location` (`id`),
+  CONSTRAINT `FK_location_supervisor_user` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- Data exporting was unselected.
 
@@ -119,7 +131,7 @@ CREATE TABLE IF NOT EXISTS `user` (
   UNIQUE KEY `user_email_uindex` (`username`),
   KEY `FK_user_user` (`updated_by`),
   CONSTRAINT `FK_user_user` FOREIGN KEY (`updated_by`) REFERENCES `user` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8;
 
 -- Data exporting was unselected.
 

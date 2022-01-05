@@ -10,6 +10,7 @@ import org.unibl.etf.is.am.models.enums.Role;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.List;
 
 @Data
 @Entity
@@ -52,7 +53,8 @@ public class UserEntity implements BaseEntity<Integer> {
     @LastModifiedBy
     @JoinColumn(name = "updated_by", referencedColumnName = "id")
     private UserEntity updatedBy;
-
+    @ManyToMany(mappedBy = "locationSupervisors")
+    private List<LocationEntity> locations;
     public enum Status {
         REQUESTED, ACTIVE, BLOCKED
     }

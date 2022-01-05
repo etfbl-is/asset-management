@@ -52,4 +52,11 @@ public class LocationEntity implements BaseEntity<Integer> {
     @LastModifiedBy
     @JoinColumn(name = "updated_by", referencedColumnName = "id")
     private UserEntity updatedBy;
+    @ManyToMany
+    @JoinTable(
+            name = "location_supervisor",
+            joinColumns = @JoinColumn(name = "location_id"),
+            inverseJoinColumns = @JoinColumn(name = "user_id")
+    )
+    private List<UserEntity> locationSupervisors;
 }
