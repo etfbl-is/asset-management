@@ -20,6 +20,7 @@ import org.unibl.etf.is.am.models.requests.SignUpRequest;
 import org.unibl.etf.is.am.models.requests.UserUpdateRequest;
 import org.unibl.etf.is.am.repositories.UserEntityRepository;
 import org.unibl.etf.is.am.services.UserService;
+import org.unibl.etf.is.am.util.Constants;
 
 import javax.annotation.PostConstruct;
 import javax.transaction.Transactional;
@@ -29,9 +30,7 @@ import javax.transaction.Transactional;
 public class UserServiceImpl extends CrudJpaService<UserEntity, Integer> implements UserService {
 
     private final UserEntityRepository repository;
-
     private final PasswordEncoder passwordEncoder;
-
     private final JmsTemplate jmsTemplate;
     @Value("${mq.topic}")
     private String topicName;
@@ -47,6 +46,8 @@ public class UserServiceImpl extends CrudJpaService<UserEntity, Integer> impleme
     private String defaultEmail;
     @Value("${mq.queue}")
     private String queueName;
+    @Value("${spring.profiles.active:unknown}")
+    private String activeProfile;
 
     public UserServiceImpl(UserEntityRepository repository, ModelMapper modelMapper, PasswordEncoder passwordEncoder, JmsTemplate jmsTemplate) {
         super(repository, modelMapper, UserEntity.class);
@@ -57,7 +58,7 @@ public class UserServiceImpl extends CrudJpaService<UserEntity, Integer> impleme
 
     @PostConstruct
     public void postConstruct() {
-        if (repository.count() == 0) {
+        if (Constants.DATABASE_PROFILE.equals(activeProfile) && repository.count() == 0) {
             UserEntity userEntity = new UserEntity();
             userEntity.setUsername(defaultUsername);
             userEntity.setPassword(passwordEncoder.encode(defaultPassword));
@@ -78,8 +79,10 @@ public class UserServiceImpl extends CrudJpaService<UserEntity, Integer> impleme
         entity.setStatus(UserEntity.Status.REQUESTED);
         entity.setRole(Role.USER);
         User user = insert(entity, User.class);
-        jmsTemplate.convertAndSend(new ActiveMQQueue(queueName), user);
-        jmsTemplate.convertAndSend(new ActiveMQTopic(topicName), user);
+        new Thread(() -> {
+            jmsTemplate.convertAndSend(new ActiveMQQueue(queueName), user);
+            jmsTemplate.convertAndSend(new ActiveMQTopic(topicName), user);
+        }).start();
     }
 
     public User update(Integer id, UserUpdateRequest user) {

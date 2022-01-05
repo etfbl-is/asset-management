@@ -18,7 +18,6 @@ import springfox.documentation.spring.web.plugins.Docket;
 import java.util.ArrayList;
 
 @SpringBootApplication
-@EnableJpaAuditing(auditorAwareRef = "auditorProvider")
 @EnableJms
 public class AmApplication {
 
