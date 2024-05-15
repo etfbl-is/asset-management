@@ -1,5 +1,8 @@
 package org.unibl.etf.is.am.base;
 
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.PersistenceContext;
+import jakarta.transaction.Transactional;
 import lombok.Getter;
 import org.modelmapper.ModelMapper;
 import org.springframework.data.domain.Page;
@@ -7,9 +10,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.unibl.etf.is.am.exceptions.NotFoundException;
 
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
-import javax.transaction.Transactional;
 import java.io.Serializable;
 import java.util.List;
 import java.util.stream.Collectors;

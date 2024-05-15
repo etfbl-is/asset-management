@@ -2,19 +2,21 @@ package org.unibl.etf.is.am.security;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.io.Decoders;
+import io.jsonwebtoken.security.Keys;
+import jakarta.servlet.FilterChain;
+import jakarta.servlet.ServletException;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
-import org.unibl.etf.is.am.models.enums.Role;
 import org.unibl.etf.is.am.models.dto.JwtUser;
+import org.unibl.etf.is.am.models.enums.Role;
 
-import javax.servlet.FilterChain;
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 @Component
@@ -37,9 +39,10 @@ public class AuthorizationFilter extends OncePerRequestFilter {
         String token = authorizationHeader.replace(authorizationHeaderPrefix, "");
         try {
             Claims claims = Jwts.parser()
-                    .setSigningKey(authorizationSecret)
-                    .parseClaimsJws(token)
-                    .getBody();
+                    .verifyWith(Keys.hmacShaKeyFor(Decoders.BASE64.decode(authorizationSecret)))
+                    .build()
+                    .parseSignedClaims(token)
+                    .getPayload();
             JwtUser jwtUser = new JwtUser(Integer.valueOf(claims.getId()), claims.getSubject(), null, Role.valueOf(claims.get("role", String.class)));
             Authentication authentication = new UsernamePasswordAuthenticationToken(jwtUser, null, jwtUser.getAuthorities());
             SecurityContextHolder.getContext().setAuthentication(authentication);

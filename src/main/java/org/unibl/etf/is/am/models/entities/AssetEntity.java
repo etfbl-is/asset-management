@@ -1,5 +1,6 @@
 package org.unibl.etf.is.am.models.entities;
 
+import jakarta.persistence.*;
 import lombok.Data;
 import org.springframework.data.annotation.CreatedBy;
 import org.springframework.data.annotation.CreatedDate;
@@ -8,7 +9,6 @@ import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import org.unibl.etf.is.am.base.BaseEntity;
 
-import javax.persistence.*;
 import java.util.Date;
 
 @Data

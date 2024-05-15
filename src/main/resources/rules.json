@@ -1,22 +1,33 @@
 {
   "rules": [
     {
-      "methods": ["GET"],
+      "methods": [
+        "GET"
+      ],
       "pattern": "/state",
-      "roles": ["ADMIN","USER"]
-    },
-    {
-      "methods": ["GET"],
-      "pattern": "/asset-types",
       "roles": [
-        "ADMIN","USER"
+        "ADMIN",
+        "USER"
       ]
     },
     {
-      "methods": ["GET"],
+      "methods": [
+        "GET"
+      ],
+      "pattern": "/asset-types",
+      "roles": [
+        "ADMIN",
+        "USER"
+      ]
+    },
+    {
+      "methods": [
+        "GET"
+      ],
       "pattern": "/asset-statuses",
       "roles": [
-        "ADMIN","USER"
+        "ADMIN",
+        "USER"
       ]
     },
     {
@@ -37,21 +48,26 @@
       "methods": [],
       "pattern": "/assets/**",
       "roles": [
-        "USER","ADMIN"
+        "USER",
+        "ADMIN"
       ]
     },
     {
       "methods": [],
       "pattern": "/locations/**",
       "roles": [
-        "USER","ADMIN"
+        "USER",
+        "ADMIN"
       ]
     },
     {
-      "methods": ["PUT"],
+      "methods": [
+        "PUT"
+      ],
       "pattern": "/users/*",
       "roles": [
-        "ADMIN","USER"
+        "ADMIN",
+        "USER"
       ]
     },
     {

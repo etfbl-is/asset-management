@@ -1,5 +1,7 @@
 package org.unibl.etf.is.am.services.impl;
 
+import jakarta.annotation.PostConstruct;
+import jakarta.transaction.Transactional;
 import org.apache.activemq.command.ActiveMQQueue;
 import org.apache.activemq.command.ActiveMQTopic;
 import org.modelmapper.ModelMapper;
@@ -21,9 +23,6 @@ import org.unibl.etf.is.am.models.requests.UserUpdateRequest;
 import org.unibl.etf.is.am.repositories.UserEntityRepository;
 import org.unibl.etf.is.am.services.UserService;
 import org.unibl.etf.is.am.util.Constants;
-
-import javax.annotation.PostConstruct;
-import javax.transaction.Transactional;
 
 @Service
 @Transactional

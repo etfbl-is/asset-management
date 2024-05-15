@@ -1,11 +1,11 @@
 package org.unibl.etf.is.am.base;
 
+import jakarta.validation.Valid;
 import lombok.Getter;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import org.unibl.etf.is.am.exceptions.NotFoundException;
 
-import javax.validation.Valid;
 import java.io.Serializable;
 import java.util.List;
 

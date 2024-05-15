@@ -1,5 +1,6 @@
 package org.unibl.etf.is.am.controllers;
 
+import jakarta.validation.Valid;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
@@ -8,8 +9,6 @@ import org.unibl.etf.is.am.exceptions.NotFoundException;
 import org.unibl.etf.is.am.models.dto.Asset;
 import org.unibl.etf.is.am.models.requests.AssetRequest;
 import org.unibl.etf.is.am.services.AssetService;
-
-import javax.validation.Valid;
 
 @RestController
 @RequestMapping("/assets")
