@@ -5,8 +5,8 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.unibl.etf.is.am.models.dto.JwtUser;
 import org.unibl.etf.is.am.models.entities.UserEntity;
-import org.unibl.etf.is.am.services.JwtUserDetailsService;
 import org.unibl.etf.is.am.repositories.UserEntityRepository;
+import org.unibl.etf.is.am.services.JwtUserDetailsService;
 
 @Service
 public class JwtUserDetailsServiceImpl implements JwtUserDetailsService {

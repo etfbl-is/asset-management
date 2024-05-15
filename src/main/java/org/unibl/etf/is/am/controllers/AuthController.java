@@ -1,5 +1,6 @@
 package org.unibl.etf.is.am.controllers;
 
+import jakarta.validation.Valid;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -11,8 +12,6 @@ import org.unibl.etf.is.am.models.requests.LoginRequest;
 import org.unibl.etf.is.am.models.requests.SignUpRequest;
 import org.unibl.etf.is.am.services.AuthService;
 import org.unibl.etf.is.am.services.UserService;
-
-import javax.validation.Valid;
 
 @RestController
 public class AuthController {

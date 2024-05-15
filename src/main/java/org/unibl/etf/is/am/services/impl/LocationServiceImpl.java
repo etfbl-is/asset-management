@@ -1,16 +1,12 @@
 package org.unibl.etf.is.am.services.impl;
 
+import jakarta.transaction.Transactional;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 import org.unibl.etf.is.am.base.CrudJpaService;
 import org.unibl.etf.is.am.models.entities.LocationEntity;
-import org.unibl.etf.is.am.models.entities.UserEntity;
 import org.unibl.etf.is.am.repositories.LocationEntityRepository;
 import org.unibl.etf.is.am.services.LocationService;
-
-import javax.transaction.Transactional;
-import java.util.ArrayList;
-import java.util.List;
 
 @Service
 @Transactional

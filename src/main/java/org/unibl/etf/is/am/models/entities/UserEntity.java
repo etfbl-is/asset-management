@@ -1,5 +1,6 @@
 package org.unibl.etf.is.am.models.entities;
 
+import jakarta.persistence.*;
 import lombok.Data;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedBy;
@@ -8,7 +9,6 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import org.unibl.etf.is.am.base.BaseEntity;
 import org.unibl.etf.is.am.models.enums.Role;
 
-import javax.persistence.*;
 import java.util.Date;
 import java.util.List;
 
@@ -55,6 +55,7 @@ public class UserEntity implements BaseEntity<Integer> {
     private UserEntity updatedBy;
     @ManyToMany(mappedBy = "locationSupervisors")
     private List<LocationEntity> locations;
+
     public enum Status {
         REQUESTED, ACTIVE, BLOCKED
     }

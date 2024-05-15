@@ -1,5 +1,6 @@
 package org.unibl.etf.is.am.services.impl;
 
+import jakarta.transaction.Transactional;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 import org.unibl.etf.is.am.base.CrudJpaService;
@@ -7,8 +8,6 @@ import org.unibl.etf.is.am.exceptions.ConflictException;
 import org.unibl.etf.is.am.models.entities.AssetStatusEntity;
 import org.unibl.etf.is.am.repositories.AssetStatusEntityRepository;
 import org.unibl.etf.is.am.services.AssetStatusService;
-
-import javax.transaction.Transactional;
 
 @Service
 @Transactional

@@ -1,7 +1,8 @@
 package org.unibl.etf.is.am.services.impl;
 
 import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.SignatureAlgorithm;
+import io.jsonwebtoken.io.Decoders;
+import io.jsonwebtoken.security.Keys;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -15,6 +16,9 @@ import org.unibl.etf.is.am.services.AuthService;
 import org.unibl.etf.is.am.services.UserService;
 import org.unibl.etf.is.am.util.LoggingUtil;
 
+import javax.crypto.SecretKey;
+import javax.crypto.spec.SecretKeySpec;
+import java.util.Base64;
 import java.util.Date;
 
 @Service
@@ -35,7 +39,7 @@ public class AuthServiceImpl implements AuthService {
 
     @Override
     public LoginResponse login(LoginRequest request) {
-        LoginResponse response = null;
+        LoginResponse response;
         try {
             Authentication authenticate = authenticationManager
                     .authenticate(
@@ -55,11 +59,11 @@ public class AuthServiceImpl implements AuthService {
 
     private String generateJwt(JwtUser user) {
         return Jwts.builder()
-                .setId(user.getId().toString())
-                .setSubject(user.getUsername())
+                .id(user.getId().toString())
                 .claim("role", user.getRole().name())
-                .setExpiration(new Date(System.currentTimeMillis() + Long.parseLong(tokenExpirationTime)))
-                .signWith(SignatureAlgorithm.HS512, tokenSecret)
+                .subject(user.getId().toString())
+                .expiration(new Date(System.currentTimeMillis() + Long.parseLong(tokenExpirationTime)))
+                .signWith(Keys.hmacShaKeyFor(Decoders.BASE64.decode(tokenSecret)))
                 .compact();
     }
 }

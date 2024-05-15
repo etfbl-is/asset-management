@@ -1,5 +1,6 @@
 package org.unibl.etf.is.am.controllers;
 
+import jakarta.validation.Valid;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 import org.unibl.etf.is.am.exceptions.ForbiddenException;
@@ -10,7 +11,6 @@ import org.unibl.etf.is.am.models.requests.ChangeStatusRequest;
 import org.unibl.etf.is.am.models.requests.UserUpdateRequest;
 import org.unibl.etf.is.am.services.UserService;
 
-import javax.validation.Valid;
 import java.util.List;
 
 @RestController
